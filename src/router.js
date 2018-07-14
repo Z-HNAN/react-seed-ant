@@ -21,24 +21,15 @@ class Router extends React.Component {
   constructor(props, context) {
     super(props);
 
-    this.ListPage = lodable({
+    this.FormPage = lodable({
       loader: () => {
         injectAsyncReducer( // Aynchronously load reducer
           context.store,
-          'list', // Reducer name
-          require('./List/reducer').default // Reducer function
+          'form', // Reducer name
+          require('./Form/reducer').default // Reducer function
         );
 
-        return import('./List/container');
-      },
-      loading: () => {
-        return <div>Loading...</div>;
-      },
-    });
-
-    this.DetailPage = lodable({
-      loader: () => {
-        return import('./Detail');
+        return import('./Form/container');
       },
       loading: () => {
         return <div>Loading...</div>;
@@ -49,8 +40,7 @@ class Router extends React.Component {
   render() {
     return (
       <Switch>
-        <Route exact path="/" component={this.ListPage} />
-        <Route exact path="/detail" component={this.DetailPage} />
+        <Route exact path="/" component={this.FormPage} />
       </Switch>
     );
   }

@@ -7,20 +7,15 @@ import {
 } from './actions';
 
 const {
-  fetchSomeAsyncRequest,
 } = async;
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    count: state.list.count,
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    fetchSomeAsyncRequest: () => {
-      dispatch(fetchSomeAsyncRequest());
-    },
   };
 };
 
