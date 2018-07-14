@@ -11,4 +11,5 @@ module.exports = {
   appPath: resolveApp('.'),
   appDist: resolveApp('dist'),
   appSrc: resolveApp('src'),
+  postcssConfig: resolveApp('config/postcss-config.js'),
 };

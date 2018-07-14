@@ -22,6 +22,75 @@ module.exports = {
       },
 
       {
+        test: /\.less$/,
+        include: path.appSrc,
+        use: [
+          {
+            loader: 'style-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              camelCase: true,
+              importLoaders: 2,
+              localIdentName: '[path][name]__[local]--[hash:base64:6]',
+              modules: true,
+              sourceMap: true,
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              config: {
+                path: path.postcssConfig,
+              },
+              sourceMap: true,
+            },
+          },
+          {
+            loader: 'less-loader',
+            options: {
+              javascriptEnabled: true,
+              sourceMap: true,
+            },
+          },
+        ],
+      },
+
+      {
+        test: /\.less$/,
+        exclude: path.appSrc,
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 2,
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              config: {
+                path: path.postcssConfig,
+              },
+            },
+          },
+          {
+            loader: 'less-loader',
+            options: {
+              javascriptEnabled: true,
+            },
+          },
+        ],
+      },
+
+      {
         test: /\.(png|jpg|gif)$/,
         use: [
           {
