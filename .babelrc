@@ -9,10 +9,8 @@
     "transform-decorators-legacy",
     [
       "import", [{
-        "camel2DashComponentName": false,
-        "libraryName": "@material-ui/core",
-        "libraryDirectory": "",
-        "style": false
+        "libraryName": "antd",
+        "style": true
       }]
     ]
   ]

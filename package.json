@@ -1,7 +1,7 @@
 {
-  "name": "react-seed-upgraded",
+  "name": "ant-playground",
   "version": "0.0.1",
-  "description": "webpack 4.0",
+  "description": "ant",
   "main": "index.js",
   "scripts": {
     "build:analyse": "webpack --config ./config/webpack.analyse.js",
@@ -14,7 +14,7 @@
   "author": "yhhcg",
   "license": "MIT",
   "dependencies": {
-    "@material-ui/core": "^1.2.2",
+    "antd": "^3.6.6",
     "babel-polyfill": "^6.26.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
