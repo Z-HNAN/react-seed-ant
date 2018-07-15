@@ -3,19 +3,33 @@ import {connect} from 'react-redux';
 
 import Component from './component';
 import {
-  async,
+  sync,
 } from './actions';
 
 const {
-} = async;
+  changeAge,
+  changeName,
+  resetForm,
+} = sync;
 
 const mapStateToProps = (state, ownProps) => {
   return {
+    age: state.form.age,
+    name: state.form.name,
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+    onAgeChange: (payload) => {
+      dispatch(changeAge(payload));
+    },
+    onFormReset: () => {
+      dispatch(resetForm());
+    },
+    onNameChange: (payload) => {
+      dispatch(changeName(payload));
+    },
   };
 };
 
