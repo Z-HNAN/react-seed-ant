@@ -10,9 +10,12 @@ export const async = new Async({
 export const sync = new Sync({
   prefix: 'form',
   actions: [
+    'addChildren',
     'changeAge',
     'changeBirthTime',
+    'changeChildrenName',
     'changeName',
+    'removeChildren',
     'resetForm',
   ],
 });

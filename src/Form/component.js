@@ -19,6 +19,14 @@ const FormItem = AntForm.Item;
 @hot(module)
 @AntForm.create({
   mapPropsToFields(props) {
+    const childrenProp = {};
+
+    props.children.forEach((child, index) => {
+      childrenProp[`children[${index}].name`] = AntForm.createFormField({
+        value: child.name,
+      });
+    });
+
     return {
       age: AntForm.createFormField({
         value: props.age,
@@ -26,6 +34,7 @@ const FormItem = AntForm.Item;
       birthTime: AntForm.createFormField({
         value: props.birthTime,
       }),
+      ...childrenProp,
       name: AntForm.createFormField({
         value: props.name,
       }),
@@ -52,9 +61,13 @@ class Form extends React.Component {
    */
   render() {
     const {
+      children,
       form,
       onAgeChange,
       onBirthTimeChange,
+      onChildrenAdd,
+      onChildrenNameChange,
+      onChildrenRemove,
       onFormReset,
       onNameChange,
     } = this.props;
@@ -111,6 +124,35 @@ class Form extends React.Component {
                 }}
               />
             )}
+          </FormItem>
+        </Row>
+        {children.map((child, index) => {
+          return (
+            <Row key={child.id}>
+              <FormItem label="孩子姓名">
+                {getFieldDecorator(`children[${index}].name`, {
+                  rules: [{
+                    required: true,
+                    message: '必填',
+                  }],
+                })(
+                  <Input
+                    autoComplete='off'
+                    onChange={(e) => {
+                      onChildrenNameChange({index, value: e.target.value});
+                    }}
+                  />
+                )}
+              </FormItem>
+            </Row>
+          );
+        })}
+        <Row>
+          <FormItem>
+            <Button type="primary" onClick={onChildrenAdd}>Add</Button>
+          </FormItem>
+          <FormItem>
+            <Button type="primary" onClick={onChildrenRemove}>Remove</Button>
           </FormItem>
         </Row>
         <Row>

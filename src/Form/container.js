@@ -7,9 +7,12 @@ import {
 } from './actions';
 
 const {
+  addChildren,
   changeAge,
   changeBirthTime,
+  changeChildrenName,
   changeName,
+  removeChildren,
   resetForm,
 } = sync;
 
@@ -17,6 +20,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     age: state.form.age,
     birthTime: state.form.birthTime,
+    children: state.form.children,
     name: state.form.name,
   };
 };
@@ -28,6 +32,15 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     onBirthTimeChange: (payload) => {
       dispatch(changeBirthTime(payload));
+    },
+    onChildrenAdd: (payload) => {
+      dispatch(addChildren(payload));
+    },
+    onChildrenNameChange: (payload) => {
+      dispatch(changeChildrenName(payload));
+    },
+    onChildrenRemove: (payload) => {
+      dispatch(removeChildren(payload));
     },
     onFormReset: () => {
       dispatch(resetForm());
