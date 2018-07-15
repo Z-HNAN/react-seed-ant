@@ -10,6 +10,7 @@ const {
   addChildren,
   changeAge,
   changeBirthTime,
+  changeChildrenAge,
   changeChildrenName,
   changeName,
   removeChildren,
@@ -33,14 +34,17 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onBirthTimeChange: (payload) => {
       dispatch(changeBirthTime(payload));
     },
-    onChildrenAdd: (payload) => {
-      dispatch(addChildren(payload));
+    onChildrenAdd: () => {
+      dispatch(addChildren());
+    },
+    onChildrenAgeChange: (payload) => {
+      dispatch(changeChildrenAge(payload));
     },
     onChildrenNameChange: (payload) => {
       dispatch(changeChildrenName(payload));
     },
-    onChildrenRemove: (payload) => {
-      dispatch(removeChildren(payload));
+    onChildrenRemove: () => {
+      dispatch(removeChildren());
     },
     onFormReset: () => {
       dispatch(resetForm());

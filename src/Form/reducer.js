@@ -8,6 +8,7 @@ const {
   ADD_CHILDREN,
   CHANGE_AGE,
   CHANGE_BIRTH_TIME,
+  CHANGE_CHILDREN_AGE,
   CHANGE_CHILDREN_NAME,
   CHANGE_NAME,
   REMOVE_CHILDREN,
@@ -43,6 +44,18 @@ export default function Reducer(state=initialState, action) {
       return {
         ...state,
         birthTime: action.payload,
+      };
+    case CHANGE_CHILDREN_AGE:
+      return {
+        ...state,
+        children: [
+          ...state.children.slice(0, action.payload.index),
+          {
+            ...state.children[action.payload.index],
+            age: action.payload.value,
+          },
+          ...state.children.slice(action.payload.index + 1),
+        ],
       };
     case CHANGE_CHILDREN_NAME:
       return {

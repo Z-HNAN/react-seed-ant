@@ -13,6 +13,7 @@ export const sync = new Sync({
     'addChildren',
     'changeAge',
     'changeBirthTime',
+    'changeChildrenAge',
     'changeChildrenName',
     'changeName',
     'removeChildren',

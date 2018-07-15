@@ -25,6 +25,9 @@ const FormItem = AntForm.Item;
       childrenProp[`children[${index}].name`] = AntForm.createFormField({
         value: child.name,
       });
+      childrenProp[`children[${index}].age`] = AntForm.createFormField({
+        value: child.age,
+      });
     });
 
     return {
@@ -66,6 +69,7 @@ class Form extends React.Component {
       onAgeChange,
       onBirthTimeChange,
       onChildrenAdd,
+      onChildrenAgeChange,
       onChildrenNameChange,
       onChildrenRemove,
       onFormReset,
@@ -141,6 +145,22 @@ class Form extends React.Component {
                     onChange={(e) => {
                       onChildrenNameChange({index, value: e.target.value});
                     }}
+                  />
+                )}
+              </FormItem>
+              <FormItem label="孩子年龄">
+                {getFieldDecorator(`children[${index}].age`, {
+                  rules: [{
+                    required: true,
+                    message: '必填',
+                  }],
+                })(
+                  <InputNumber
+                    min={0}
+                    onChange={(e) => {
+                      onChildrenAgeChange({index, value: e});
+                    }}
+                    precision={2}
                   />
                 )}
               </FormItem>
