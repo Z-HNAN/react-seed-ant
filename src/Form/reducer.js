@@ -2,15 +2,18 @@
 import {
   sync,
 } from './actions';
+import moment from 'moment';
 
 const {
   CHANGE_AGE,
+  CHANGE_BIRTH_TIME,
   CHANGE_NAME,
   RESET_FORM,
 } = sync;
 
 const initialState = {
   age: '30',
+  birthTime: moment('14:25', 'HH:mm'),
   name: '张三',
 };
 
@@ -21,6 +24,11 @@ export default function Reducer(state=initialState, action) {
         ...state,
         age: action.payload,
       };
+    case CHANGE_BIRTH_TIME:
+      return {
+        ...state,
+        birthTime: action.payload,
+      };
     case CHANGE_NAME:
       return {
         ...state,
@@ -28,8 +36,7 @@ export default function Reducer(state=initialState, action) {
       };
     case RESET_FORM:
       return {
-        ...state,
-        name: '李四',
+        ...initialState,
       };
     default:
       return state;

@@ -11,6 +11,7 @@ export const sync = new Sync({
   prefix: 'form',
   actions: [
     'changeAge',
+    'changeBirthTime',
     'changeName',
     'resetForm',
   ],

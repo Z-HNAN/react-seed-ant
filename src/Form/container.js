@@ -8,6 +8,7 @@ import {
 
 const {
   changeAge,
+  changeBirthTime,
   changeName,
   resetForm,
 } = sync;
@@ -15,6 +16,7 @@ const {
 const mapStateToProps = (state, ownProps) => {
   return {
     age: state.form.age,
+    birthTime: state.form.birthTime,
     name: state.form.name,
   };
 };
@@ -23,6 +25,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onAgeChange: (payload) => {
       dispatch(changeAge(payload));
+    },
+    onBirthTimeChange: (payload) => {
+      dispatch(changeBirthTime(payload));
     },
     onFormReset: () => {
       dispatch(resetForm());

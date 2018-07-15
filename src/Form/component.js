@@ -8,6 +8,7 @@ import {
   Input,
   InputNumber,
   Row,
+  TimePicker,
 } from 'antd';
 
 const FormItem = AntForm.Item;
@@ -21,6 +22,9 @@ const FormItem = AntForm.Item;
     return {
       age: AntForm.createFormField({
         value: props.age,
+      }),
+      birthTime: AntForm.createFormField({
+        value: props.birthTime,
       }),
       name: AntForm.createFormField({
         value: props.name,
@@ -50,6 +54,7 @@ class Form extends React.Component {
     const {
       form,
       onAgeChange,
+      onBirthTimeChange,
       onFormReset,
       onNameChange,
     } = this.props;
@@ -89,6 +94,21 @@ class Form extends React.Component {
                   onAgeChange(e);
                 }}
                 precision={2}
+              />
+            )}
+          </FormItem>
+          <FormItem label="出生时间">
+            {getFieldDecorator('birthTime', {
+              rules: [{
+                required: true,
+                message: '必填',
+              }],
+            })(
+              <TimePicker
+                format='HH:mm'
+                onChange={(e) => {
+                  onBirthTimeChange(e);
+                }}
               />
             )}
           </FormItem>
