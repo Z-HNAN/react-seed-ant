@@ -1,5 +1,8 @@
 import React from 'react';
 import {
+  array,
+  func,
+  object,
 } from 'prop-types';
 import {hot} from 'react-hot-loader';
 import {
@@ -46,8 +49,22 @@ const FormItem = AntForm.Item;
 })
 class Form extends React.Component {
   static propTypes = {
+    children: array,
+    form: object,
+    onAgeChange: func,
+    onBirthTimeChange: func,
+    onChildrenAdd: func,
+    onChildrenAgeChange: func,
+    onChildrenNameChange: func,
+    onChildrenRemove: func,
+    onFormReset: func,
+    onNameChange: func,
   };
 
+  /**
+   * Form submit handler.
+   * @param  {Object} e - The event source of the callback.
+   */
   handleSubmit(e) {
     e.preventDefault();
 
@@ -81,9 +98,9 @@ class Form extends React.Component {
     } = form;
 
     return (
-      <AntForm layout="inline" onSubmit={this.handleSubmit.bind(this)}>
+      <AntForm layout='inline' onSubmit={this.handleSubmit.bind(this)}>
         <Row>
-          <FormItem label="姓名">
+          <FormItem label='姓名'>
             {getFieldDecorator('name', {
               rules: [{
                 required: true,
@@ -98,7 +115,7 @@ class Form extends React.Component {
               />
             )}
           </FormItem>
-          <FormItem label="年龄">
+          <FormItem label='年龄'>
             {getFieldDecorator('age', {
               rules: [{
                 required: true,
@@ -114,7 +131,7 @@ class Form extends React.Component {
               />
             )}
           </FormItem>
-          <FormItem label="出生时间">
+          <FormItem label='出生时间'>
             {getFieldDecorator('birthTime', {
               rules: [{
                 required: true,
@@ -133,7 +150,7 @@ class Form extends React.Component {
         {children.map((child, index) => {
           return (
             <Row key={child.id}>
-              <FormItem label="孩子姓名">
+              <FormItem label='孩子姓名'>
                 {getFieldDecorator(`children[${index}].name`, {
                   rules: [{
                     required: true,
@@ -148,7 +165,7 @@ class Form extends React.Component {
                   />
                 )}
               </FormItem>
-              <FormItem label="孩子年龄">
+              <FormItem label='孩子年龄'>
                 {getFieldDecorator(`children[${index}].age`, {
                   rules: [{
                     required: true,
@@ -169,18 +186,18 @@ class Form extends React.Component {
         })}
         <Row>
           <FormItem>
-            <Button type="primary" onClick={onChildrenAdd}>Add</Button>
+            <Button type='primary' onClick={onChildrenAdd}>Add</Button>
           </FormItem>
           <FormItem>
-            <Button type="primary" onClick={onChildrenRemove}>Remove</Button>
+            <Button type='primary' onClick={onChildrenRemove}>Remove</Button>
           </FormItem>
         </Row>
         <Row>
           <FormItem>
-            <Button type="primary" onClick={onFormReset}>Reset</Button>
+            <Button type='primary' onClick={onFormReset}>Reset</Button>
           </FormItem>
           <FormItem>
-            <Button type="primary" htmlType="submit">Submit</Button>
+            <Button type='primary' htmlType='submit'>Submit</Button>
           </FormItem>
         </Row>
       </AntForm>
