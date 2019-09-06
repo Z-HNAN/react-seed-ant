@@ -1,6 +1,6 @@
-# react-seed-upgraded
+# react-seed-ant
 
-Import redux base on [react-seed-simplify](https://github.com/yhhcg/react-seed-simplify)
+Import base on [ant-playground](https://github.com/marcosun/ant-playground.git)
 
 ## Developing
 
@@ -9,10 +9,9 @@ $ yarn
 $ yarn start
 ```
 
-## Features:
+## Feature
+antd material-ui/styles 
+redux react-redux redux-saga 
+eslint:stardand
 
-- Lazy Loading
-- HMR
-- Tree Shaking
-- Code Inspection
-- Code Splitting
+## 1.0.0

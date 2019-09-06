@@ -2,7 +2,7 @@
   "plugins": [
     "react"
   ],
-  "extends": ["eslint:recommended", "google", "plugin:react/recommended"],
+  "extends": ["eslint:recommended", "standard", "plugin:react/recommended"],
   "parser": "babel-eslint",
   "env": {
     "browser": true,
