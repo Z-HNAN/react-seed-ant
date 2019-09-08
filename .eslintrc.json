@@ -1,8 +1,18 @@
 {
+  "settings": {
+    "react": {
+      "version": "16.9.0"
+    }
+  },
   "plugins": [
     "react"
   ],
   "extends": ["eslint:recommended", "standard", "plugin:react/recommended"],
+  "rules": {
+    "generator-star-spacing": "off",
+    "no-console": "warn",
+    "require-jsdoc": "off"
+  },
   "parser": "babel-eslint",
   "env": {
     "browser": true,

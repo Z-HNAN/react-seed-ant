@@ -1,16 +1,16 @@
-const path = require('./path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const path = require('./path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = {
   entry: {
-    app: path.appSrc,
+    app: path.appSrc
   },
 
   output: {
     filename: 'js/[name].[hash].js',
     chunkFilename: 'js/[name].[chunkhash].js',
-    path: path.appDist,
+    path: path.appDist
   },
 
   module: {
@@ -18,7 +18,7 @@ module.exports = {
       {
         test: /(\.js|\.jsx)$/,
         include: path.appSrc,
-        loader: 'babel-loader',
+        loader: 'babel-loader'
       },
 
       {
@@ -28,8 +28,8 @@ module.exports = {
           {
             loader: 'style-loader',
             options: {
-              sourceMap: true,
-            },
+              sourceMap: true
+            }
           },
           {
             loader: 'css-loader',
@@ -38,26 +38,26 @@ module.exports = {
               importLoaders: 2,
               localIdentName: '[path][name]__[local]--[hash:base64:6]',
               modules: true,
-              sourceMap: true,
-            },
+              sourceMap: true
+            }
           },
           {
             loader: 'postcss-loader',
             options: {
               config: {
-                path: path.postcssConfig,
+                path: path.postcssConfig
               },
-              sourceMap: true,
-            },
+              sourceMap: true
+            }
           },
           {
             loader: 'less-loader',
             options: {
               javascriptEnabled: true,
-              sourceMap: true,
-            },
-          },
-        ],
+              sourceMap: true
+            }
+          }
+        ]
       },
 
       {
@@ -65,29 +65,29 @@ module.exports = {
         exclude: path.appSrc,
         use: [
           {
-            loader: 'style-loader',
+            loader: 'style-loader'
           },
           {
             loader: 'css-loader',
             options: {
-              importLoaders: 2,
-            },
+              importLoaders: 2
+            }
           },
           {
             loader: 'postcss-loader',
             options: {
               config: {
-                path: path.postcssConfig,
-              },
-            },
+                path: path.postcssConfig
+              }
+            }
           },
           {
             loader: 'less-loader',
             options: {
-              javascriptEnabled: true,
-            },
-          },
-        ],
+              javascriptEnabled: true
+            }
+          }
+        ]
       },
 
       {
@@ -97,10 +97,10 @@ module.exports = {
             loader: 'url-loader',
             options: {
               limit: 8192,
-              name: 'images/[name].[hash].[ext]',
-            },
-          },
-        ],
+              name: 'images/[name].[hash].[ext]'
+            }
+          }
+        ]
       },
 
       {
@@ -110,28 +110,40 @@ module.exports = {
             loader: 'url-loader',
             options: {
               limit: 8192,
-              name: 'fonts/[name].[hash].[ext]',
-            },
-          },
-        ],
-      },
-    ],
+              name: 'fonts/[name].[hash].[ext]'
+            }
+          }
+        ]
+      }
+    ]
   },
 
   plugins: [
     new CleanWebpackPlugin(['dist'], {
       root: path.appPath,
-      verbose: true,
+      verbose: true
     }),
 
     new HtmlWebpackPlugin({
       inject: false,
       template: require('html-webpack-template'),
 
-      title: 'HtmlWebpackPlugin',
-      appMountId: 'app',
-    }),
+      title: 'react-seed',
+      appMountId: 'app'
+    })
   ],
+
+  resolve: {
+    alias: {
+      '@Src': path.appSrc,
+      '@Common': path.appCommon,
+      '@Utils': path.appUtils,
+      /**
+       * deal with hot-loader to support React16.6+
+       */
+      'react-dom': '@hot-loader/react-dom'
+    }
+  },
 
   optimization: {
     runtimeChunk: true,
@@ -141,9 +153,9 @@ module.exports = {
         vendors: {
           name: 'vendors',
           test: /[\\/]node_modules[\\/]/,
-          priority: -20,
-        },
-      },
-    },
-  },
-};
+          priority: -20
+        }
+      }
+    }
+  }
+}

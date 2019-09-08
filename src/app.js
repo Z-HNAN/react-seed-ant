@@ -1,12 +1,12 @@
-/* eslint-disable require-jsdoc */
-import React from 'react';
+import React from 'react'
+import { hot } from 'react-hot-loader/root'
 
-import Router from './router';
+import Router from './router'
 
 const App = () => (
   <div>
     <Router />
   </div>
-);
+)
 
-export default App;
+export default hot(App)

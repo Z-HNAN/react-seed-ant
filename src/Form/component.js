@@ -1,86 +1,77 @@
-import React from 'react';
-import {
-  array,
-  func,
-  object,
-} from 'prop-types';
-import {hot} from 'react-hot-loader';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/styles'
 import {
   Button,
   Form as AntForm,
   Input,
   InputNumber,
   Row,
-  TimePicker,
-} from 'antd';
+  TimePicker
+} from 'antd'
 
-const FormItem = AntForm.Item;
+const FormItem = AntForm.Item
+
+const styles = {
+  addButton: {
+    color: 'white',
+    background: 'deeppink'
+  }
+}
 
 /**
  * Form Page
  */
-@hot(module)
 @AntForm.create({
-  mapPropsToFields(props) {
-    const childrenProp = {};
+  mapPropsToFields (props) {
+    const childrenProp = {}
 
     props.children.forEach((child, index) => {
       childrenProp[`children[${index}].name`] = AntForm.createFormField({
-        value: child.name,
-      });
+        value: child.name
+      })
       childrenProp[`children[${index}].age`] = AntForm.createFormField({
-        value: child.age,
-      });
-    });
+        value: child.age
+      })
+    })
 
     return {
       age: AntForm.createFormField({
-        value: props.age,
+        value: props.age
       }),
       birthTime: AntForm.createFormField({
-        value: props.birthTime,
+        value: props.birthTime
       }),
       ...childrenProp,
       name: AntForm.createFormField({
-        value: props.name,
-      }),
-    };
-  },
+        value: props.name
+      })
+    }
+  }
 })
-class Form extends React.Component {
-  static propTypes = {
-    children: array,
-    form: object,
-    onAgeChange: func,
-    onBirthTimeChange: func,
-    onChildrenAdd: func,
-    onChildrenAgeChange: func,
-    onChildrenNameChange: func,
-    onChildrenRemove: func,
-    onFormReset: func,
-    onNameChange: func,
-  };
 
+class Form extends React.Component {
   /**
    * Form submit handler.
    * @param  {Object} e - The event source of the callback.
    */
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit (e) {
+    e.preventDefault()
 
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        console.log('Received values of form: ', values)
       }
-    });
+    })
   }
 
   /**
    * Render Form Page
    * @return {Node}
    */
-  render() {
+  render () {
     const {
+      classes,
       children,
       form,
       onAgeChange,
@@ -90,12 +81,12 @@ class Form extends React.Component {
       onChildrenNameChange,
       onChildrenRemove,
       onFormReset,
-      onNameChange,
-    } = this.props;
+      onNameChange
+    } = this.props
 
     const {
-      getFieldDecorator,
-    } = form;
+      getFieldDecorator
+    } = form
 
     return (
       <AntForm layout='inline' onSubmit={this.handleSubmit.bind(this)}>
@@ -104,13 +95,13 @@ class Form extends React.Component {
             {getFieldDecorator('name', {
               rules: [{
                 required: true,
-                message: '必填',
-              }],
+                message: '必填'
+              }]
             })(
               <Input
                 autoComplete='off'
                 onChange={(e) => {
-                  onNameChange(e.target.value);
+                  onNameChange(e.target.value)
                 }}
               />
             )}
@@ -119,13 +110,13 @@ class Form extends React.Component {
             {getFieldDecorator('age', {
               rules: [{
                 required: true,
-                message: '必填',
-              }],
+                message: '必填'
+              }]
             })(
               <InputNumber
                 min={0}
                 onChange={(e) => {
-                  onAgeChange(e);
+                  onAgeChange(e)
                 }}
                 precision={2}
               />
@@ -135,13 +126,13 @@ class Form extends React.Component {
             {getFieldDecorator('birthTime', {
               rules: [{
                 required: true,
-                message: '必填',
-              }],
+                message: '必填'
+              }]
             })(
               <TimePicker
                 format='HH:mm'
                 onChange={(e) => {
-                  onBirthTimeChange(e);
+                  onBirthTimeChange(e)
                 }}
               />
             )}
@@ -154,13 +145,13 @@ class Form extends React.Component {
                 {getFieldDecorator(`children[${index}].name`, {
                   rules: [{
                     required: true,
-                    message: '必填',
-                  }],
+                    message: '必填'
+                  }]
                 })(
                   <Input
                     autoComplete='off'
                     onChange={(e) => {
-                      onChildrenNameChange({index, value: e.target.value});
+                      onChildrenNameChange({ index, value: e.target.value })
                     }}
                   />
                 )}
@@ -169,24 +160,24 @@ class Form extends React.Component {
                 {getFieldDecorator(`children[${index}].age`, {
                   rules: [{
                     required: true,
-                    message: '必填',
-                  }],
+                    message: '必填'
+                  }]
                 })(
                   <InputNumber
                     min={0}
                     onChange={(e) => {
-                      onChildrenAgeChange({index, value: e});
+                      onChildrenAgeChange({ index, value: e })
                     }}
                     precision={2}
                   />
                 )}
               </FormItem>
             </Row>
-          );
+          )
         })}
         <Row>
           <FormItem>
-            <Button type='primary' onClick={onChildrenAdd}>Add</Button>
+            <Button className={classes.addButton} type='primary' onClick={onChildrenAdd}>Add</Button>
           </FormItem>
           <FormItem>
             <Button type='primary' onClick={onChildrenRemove}>Remove</Button>
@@ -201,8 +192,22 @@ class Form extends React.Component {
           </FormItem>
         </Row>
       </AntForm>
-    );
+    )
   }
 }
 
-export default Form;
+Form.propTypes = {
+  classes: PropTypes.object,
+  children: PropTypes.array,
+  form: PropTypes.object,
+  onAgeChange: PropTypes.func,
+  onBirthTimeChange: PropTypes.func,
+  onChildrenAdd: PropTypes.func,
+  onChildrenAgeChange: PropTypes.func,
+  onChildrenNameChange: PropTypes.func,
+  onChildrenRemove: PropTypes.func,
+  onFormReset: PropTypes.func,
+  onNameChange: PropTypes.func
+}
+
+export default withStyles(styles)(Form)

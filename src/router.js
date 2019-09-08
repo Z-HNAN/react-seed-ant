@@ -1,49 +1,45 @@
 /* eslint-disable require-jsdoc */
-import React from 'react';
+import React from 'react'
 import {
   Route,
-  Switch,
-} from 'react-router-dom';
-import {object} from 'prop-types';
-import lodable from 'react-loadable';
+  Switch
+} from 'react-router-dom'
+import PropTypes from 'prop-types'
+
+import Lodable from 'react-loadable'
+import LoadableLoading from '@Common/LoadableLoading'
 
 // Dynamically load reducer
-import injectAsyncReducer from './injectAsyncReducer';
+import injectAsyncReducer from './injectAsyncReducer'
 
 /**
  * Router with lazy loaded pages
  */
-class Router extends React.Component {
-  static contextTypes = {
-    store: object,
-  };
+const Router = (props, context) => {
+  const FormPage = Lodable({
+    loader: () => {
+      injectAsyncReducer( // Aynchronously load reducer
+        context.store,
+        'form', // Reducer name
+        require('./Form/reducer').default // Reducer function
+      )
 
-  constructor(props, context) {
-    super(props);
+      return import('./Form')
+    },
+    loading: LoadableLoading
+  })
 
-    this.FormPage = lodable({
-      loader: () => {
-        injectAsyncReducer( // Aynchronously load reducer
-          context.store,
-          'form', // Reducer name
-          require('./Form/reducer').default // Reducer function
-        );
+  return (
+    <Switch>
 
-        return import('./Form/container');
-      },
-      loading: () => {
-        return <div>Loading...</div>;
-      },
-    });
-  }
+      <Route exact path="/" component={ FormPage } />
 
-  render() {
-    return (
-      <Switch>
-        <Route exact path="/" component={this.FormPage} />
-      </Switch>
-    );
-  }
+    </Switch>
+  )
 }
 
-export default Router;
+Router.contextTypes = {
+  store: PropTypes.object
+}
+
+export default Router

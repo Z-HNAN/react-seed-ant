@@ -1,8 +1,8 @@
-const merge = require('webpack-merge');
-const webpack = require('webpack');
+const merge = require('webpack-merge')
+const webpack = require('webpack')
 
-const path = require('./path');
-const common = require('./webpack.common.js');
+const path = require('./path')
+const common = require('./webpack.common.js')
 
 module.exports = merge(common, {
   mode: 'development',
@@ -12,10 +12,10 @@ module.exports = merge(common, {
   devServer: {
     contentBase: path.appDist,
     historyApiFallback: true,
-    hot: true,
+    hot: true
   },
 
   plugins: [
-    new webpack.HotModuleReplacementPlugin(), // 热替换插件
-  ],
-});
+    new webpack.HotModuleReplacementPlugin() // 热替换插件
+  ]
+})

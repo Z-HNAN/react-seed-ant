@@ -1,22 +1,20 @@
-/* eslint-disable require-jsdoc */
 /**
  * This module composes root reducer including react-router
  * @requires redux
- * @requires react-router-redux
+ * @requires connected-react-router
  */
-import {combineReducers} from 'redux';
-import {routerReducer as router} from 'react-router-redux';
+import { combineReducers } from 'redux'
+import { connectRouter } from 'connected-react-router'
 
 /**
  * App reducer maintain states to be shared across modules
  * @param  {Object} state - Previous leaf node of redux store
- * @param  {string} state.cityCode - City code, hangzhou => 330100
  * @param  {Object} action - Redux action
  * @return {Object}
  */
-const app = (state={city: 330100}, action) => {
-  return state;
-};
+const app = (state = { }, action) => {
+  return state
+}
 
 /**
  * This is a create reducer function
@@ -24,16 +22,23 @@ const app = (state={city: 330100}, action) => {
  * @param  {function} asyncReducers - asynchronously loaded recuders
  * @return {object} - root reducer
  */
-export default function createReducer(asyncReducers) {
+export default function createReducer (history, asyncReducers) {
   /**
    * Return root reducer
    * Name of each leaf store should match Page Name or Functionality Name
    */
   return combineReducers({
     // Permanent redux reducers
-    router,
     app,
+    /**
+     * Router reducer (we don't provide reducer.js, use as e.g)
+     * -> https://github.com/ReactTraining/history#navigation
+     * method (history): push, replace, go, goBack, goForward
+     *
+     * e.g dispatch(push('/person'))
+     */
+    router: connectRouter(history),
     // Aync reducers
-    ...asyncReducers,
-  });
+    ...asyncReducers
+  })
 }

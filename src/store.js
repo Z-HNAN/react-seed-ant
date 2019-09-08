@@ -3,17 +3,53 @@
  * This module composes redux store instance.
  * Redux store manages many complex states for the app
  */
-import {createStore} from 'redux';
+import { applyMiddleware, createStore } from 'redux'
 
-import createReducer from './reducer';
+import { routerMiddleware } from 'connected-react-router'
+import { createBrowserHistory } from 'history'
+import createSagaMiddleware from 'redux-saga'
+import rootSaga from './saga'
+import logger from 'redux-logger'
+
+import createReducer from './reducer'
+
+/**
+ * Create middlewares
+ */
+let middlewares = []
+/**
+ * Contains HTML5 browser history instance
+ */
+export const history = createBrowserHistory()
+/**
+ * Represents history middleware
+ */
+const historyMiddleware = routerMiddleware(history)
+middlewares = [...middlewares, historyMiddleware]
+
+/**
+ * Represents saga middleware
+ */
+const sagaMiddleware = createSagaMiddleware()
+middlewares = [...middlewares, sagaMiddleware]
+
+// Disable logger middlewares in production mode
+if (process.env.NODE_ENV !== 'production') {
+  middlewares = [...middlewares, logger]
+}
 
 /**
  * Factory composing react store with reducers and middlewares
  * @param  {Object} initialState - Instance by calling applyMiddleware
  * @return {Store}
  */
-export default function configureStore(initialState) {
-  const store = createStore(createReducer(), initialState);
+export default function configureStore () {
+  const store = createStore(
+    createReducer(history),
+    applyMiddleware(...middlewares)
+  )
+
+  sagaMiddleware.run(rootSaga)
 
   // Enable Webpack hot module replacement for reducers
   // if (module.hot) {
@@ -24,7 +60,7 @@ export default function configureStore(initialState) {
 
   // Extensions
   // Async reducer registry, adding an extra attribute to the store object
-  store.asyncReducers = {};
+  store.asyncReducers = {}
 
-  return store;
+  return store
 }
