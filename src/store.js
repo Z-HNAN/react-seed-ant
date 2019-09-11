@@ -7,7 +7,7 @@ import { applyMiddleware, createStore } from 'redux'
 
 import { routerMiddleware } from 'connected-react-router'
 import { createBrowserHistory } from 'history'
-import createSagaMiddleware from 'redux-saga'
+import { sagaMiddleware } from './injectAsyncSaga'
 import rootSaga from './saga'
 import logger from 'redux-logger'
 
@@ -16,7 +16,7 @@ import createReducer from './reducer'
 /**
  * Create middlewares
  */
-let middlewares = []
+const middlewares = []
 /**
  * Contains HTML5 browser history instance
  */
@@ -25,17 +25,16 @@ export const history = createBrowserHistory()
  * Represents history middleware
  */
 const historyMiddleware = routerMiddleware(history)
-middlewares = [...middlewares, historyMiddleware]
+middlewares.push(historyMiddleware)
 
 /**
  * Represents saga middleware
  */
-const sagaMiddleware = createSagaMiddleware()
-middlewares = [...middlewares, sagaMiddleware]
+middlewares.push(sagaMiddleware)
 
 // Disable logger middlewares in production mode
 if (process.env.NODE_ENV !== 'production') {
-  middlewares = [...middlewares, logger]
+  middlewares.push(logger)
 }
 
 /**

@@ -11,6 +11,8 @@ import LoadableLoading from '@Common/LoadableLoading'
 
 // Dynamically load reducer
 import injectAsyncReducer from './injectAsyncReducer'
+// Dynamically load saga
+import injectAsyncSaga from './injectAsyncSaga'
 
 /**
  * Router with lazy loaded pages
@@ -22,6 +24,10 @@ const Router = (props, context) => {
         context.store,
         'form', // Reducer name
         require('./Form/reducer').default // Reducer function
+      )
+
+      injectAsyncSaga( // Aynchronously load saga
+        require('./Form/saga').default // Reducer function
       )
 
       return import('./Form')
