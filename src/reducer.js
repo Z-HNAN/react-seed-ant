@@ -6,15 +6,7 @@
 import { combineReducers } from 'redux'
 import { connectRouter } from 'connected-react-router'
 
-/**
- * App reducer maintain states to be shared across modules
- * @param  {Object} state - Previous leaf node of redux store
- * @param  {Object} action - Redux action
- * @return {Object}
- */
-const app = (state = { }, action) => {
-  return state
-}
+import appReducer from './App/reducer'
 
 /**
  * This is a create reducer function
@@ -29,7 +21,7 @@ export default function createReducer (history, asyncReducers) {
    */
   return combineReducers({
     // Permanent redux reducers
-    app,
+    app: appReducer,
     /**
      * Router reducer (we don't provide reducer.js, use as e.g)
      * -> https://github.com/ReactTraining/history#navigation
