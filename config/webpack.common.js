@@ -22,7 +22,7 @@ module.exports = {
       },
 
       {
-        test: /\.less$/,
+        test: /(\.less|\.css)$/,
         include: path.appSrc,
         use: [
           {
@@ -61,7 +61,7 @@ module.exports = {
       },
 
       {
-        test: /\.less$/,
+        test: /(\.less|\.css)$/,
         exclude: path.appSrc,
         use: [
           {
