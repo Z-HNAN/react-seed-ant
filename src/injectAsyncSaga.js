@@ -6,10 +6,19 @@ import { fork } from 'redux-saga/effects'
  */
 export const sagaMiddleware = createSagaMiddleware()
 
-export default function injectAsyncSaga (saga) {
-  const main = function* () {
-    yield fork(saga)
+const sagas = []
+
+export default function injectAsyncSaga (key, saga) {
+  if (sagas.includes(key)) {
+    /* already inject this saga */
+    return
+  } else {
+    /* no inject this saga */
+    sagas.push(key)
+    const main = function* () {
+      yield fork(saga)
+    }
+    /* add listener to sage */
+    sagaMiddleware.run(main)
   }
-  /* add listener to sage */
-  sagaMiddleware.run(main)
 }

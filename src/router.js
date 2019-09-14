@@ -27,6 +27,7 @@ const Router = (props, context) => {
       )
 
       injectAsyncSaga( // Aynchronously load saga
+        'form', // saga name
         require('./Form/saga').default // Reducer function
       )
 
